@@ -1,0 +1,42 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body, #__next { height: 100%; }
+
+body {
+  background: #F4F4F2;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+
+.job-card:hover { box-shadow: 0 2px 8px rgba(0,0,0,.06) !important; }
+
+@media (min-width: 1024px) {
+  .detail-col { display: flex !important; flex-direction: column; }
+  .mob-sheet { display: none !important; }
+  .list-col { width: 420px !important; max-width: 420px !important; }
+}
+
+@media (max-width: 1023px) {
+  .detail-col { display: none !important; }
+  .mob-sheet { display: block !important; }
+  .list-col { width: 100% !important; max-width: 100% !important; border-right: none !important; }
+  .mob-back { display: flex !important; }
+}
+
+@media (max-width: 600px) {
+  .stat-bar { display: none !important; }
+  .desk-only { display: none !important; }
+}
