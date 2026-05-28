@@ -43,7 +43,7 @@ export default function Home() {
     return () => subscription.unsubscribe()
   }, [])
 
-  const [jobs, setJobs] = useState([])
+  const [jobs, setJobs] = useState<any[]>([])
   const [jobsLoading, setJobsLoading] = useState(true)
 
   useEffect(() => {
