@@ -15,7 +15,7 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={outfit.className} style={{ margin:0, padding:0, background:'#F4F4F2' }}>
