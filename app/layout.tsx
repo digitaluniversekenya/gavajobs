@@ -13,6 +13,11 @@ export const metadata = {
     url: 'https://gavajobs.co.ke',
     siteName: 'GavaJobs',
   },
+  icons: {
+    icon: '/icon.png',
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
