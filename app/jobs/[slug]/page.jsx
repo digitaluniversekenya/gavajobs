@@ -4,7 +4,17 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 )
-import { dl, ini } from '../../../utils/helpers'
+function dl(deadline) {
+  if (!deadline) return { text: 'See advert', color: '#9A9A94', closed: false, urgent: false }
+  const deadlineTime = new Date(deadline + 'T17:00:00+03:00')
+  const now = new Date()
+  if (now > deadlineTime) return { text: 'Closed', color: '#9A9A94', closed: true, urgent: false }
+  const diff = Math.ceil((deadlineTime - now) / 864e5)
+  if (diff <= 0) return { text: 'Closes today', color: '#C8102E', closed: false, urgent: true }
+  if (diff <= 3) return { text: `${diff} days left`, color: '#C8102E', closed: false, urgent: true }
+  if (diff <= 7) return { text: `${diff} days left`, color: '#C47F17', closed: false, urgent: false }
+  return { text: `${diff} days left`, color: '#5C5C5C', closed: false, urgent: false }
+}
 import { C } from '../../../constants/theme'
 import Link from 'next/link'
 
