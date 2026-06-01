@@ -143,15 +143,18 @@ export default async function JobPage({ params: paramsPromise }) {
           const applyUrl = urlMatch ? (urlMatch[0].startsWith('http') ? urlMatch[0] : 'https://'+urlMatch[0]) : null
           const applyEmail = !applyUrl && emailMatch ? emailMatch[0] : null
           return (
-            <a href={applyUrl || (applyEmail ? `mailto:${applyEmail}` : '#how-to-apply')} target={applyUrl?'_blank':'_self'} rel="noreferrer"
-              style={{ display:'block', background:C.red, color:C.white, fontFamily:'inherit', fontSize:15, fontWeight:700, padding:'14px 20px', borderRadius:12, cursor:'pointer', textDecoration:'none', textAlign:'center', marginBottom:20 }}>
-              {applyUrl ? `Apply now` : applyEmail ? `Apply via email` : 'See how to apply below'}
-            </a>
+            <>
+              <a href={applyUrl || (applyEmail ? `mailto:${applyEmail}` : '#how-to-apply')} target={applyUrl?'_blank':'_self'} rel="noreferrer"
+                style={{ display:'block', background:C.red, color:C.white, fontFamily:'inherit', fontSize:15, fontWeight:700, padding:'14px 20px', borderRadius:12, cursor:'pointer', textDecoration:'none', textAlign:'center', marginBottom:20 }}>
+                {applyUrl ? `Apply now` : applyEmail ? `Apply via email` : 'See how to apply below'}
+              </a>
+              <a href={`/?job=${job.display_id}`}
+                style={{ display:'block', background:C.green, color:C.white, fontFamily:'inherit', fontSize:15, fontWeight:700, padding:'14px 20px', borderRadius:12, textDecoration:'none', textAlign:'center', marginBottom:20 }}>
+                🎯 Check if you qualify — see your match score
+              </a>
+            </>
           )
-          <a href={`/?job=${job.display_id}`}
-          style={{ display:'block', background:C.green, color:C.white, fontFamily:'inherit', fontSize:15, fontWeight:700, padding:'14px 20px', borderRadius:12, textDecoration:'none', textAlign:'center', marginBottom:20 }}>
-          🎯 Check if you qualify — see your match score
-        </a>
+          
         })()}
 
         <div style={{ background:C.white, border:`1px solid ${C.border}`, borderRadius:12, overflow:'hidden', marginBottom:20 }}>
