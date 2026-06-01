@@ -81,6 +81,12 @@ export default function Home() {
           slug: j.slug,
         }))
         setJobs(mapped)
+        const params = new URLSearchParams(window.location.search)
+        const jobParam = params.get('job')
+        if (jobParam) {
+          const jobToOpen = mapped.find(j => j.id === jobParam)
+          if (jobToOpen) { setSelected(jobToOpen); setMobOpen(true) }
+        }
       } catch (err) {
         console.error('[GavaJobs] Failed to fetch jobs:', err)
         setJobs([])

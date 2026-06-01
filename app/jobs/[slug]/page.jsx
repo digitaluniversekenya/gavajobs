@@ -148,6 +148,10 @@ export default async function JobPage({ params: paramsPromise }) {
               {applyUrl ? `Apply now` : applyEmail ? `Apply via email` : 'See how to apply below'}
             </a>
           )
+          <a href={`/?job=${job.display_id}`}
+          style={{ display:'block', background:C.green, color:C.white, fontFamily:'inherit', fontSize:15, fontWeight:700, padding:'14px 20px', borderRadius:12, textDecoration:'none', textAlign:'center', marginBottom:20 }}>
+          🎯 Check if you qualify — see your match score
+        </a>
         })()}
 
         <div style={{ background:C.white, border:`1px solid ${C.border}`, borderRadius:12, overflow:'hidden', marginBottom:20 }}>

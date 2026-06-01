@@ -255,7 +255,14 @@ export default function Detail({ job, saved, onSave, onClose, profile, onBuildPr
             )
           })()}
           <button onClick={() => onSave(job.id)} style={{ background:isSaved?C.redSoft:C.borderLight, color:isSaved?C.red:C.text2, border:`1.5px solid ${isSaved?C.red:C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 16px", borderRadius:10, cursor:"pointer" }}>{isSaved?"✓ Saved":"Save"}</button>
-          <button onClick={() => waShare(job)} style={{ background:C.borderLight, color:C.text2, border:`1.5px solid ${C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 14px", borderRadius:10, cursor:"pointer" }}>Share</button>
+        <button onClick={() => {
+  const url = job.slug ? `${window.location.origin}/jobs/${job.slug}` : window.location.href
+  if (navigator.share) {
+    navigator.share({ title: job.title, text: `${job.title} at ${job.employer}`, url })
+  } else {
+    navigator.clipboard.writeText(url).then(() => alert('Link copied!')).catch(() => {})
+  }
+}} style={{ background:C.borderLight, color:C.text2, border:`1.5px solid ${C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 14px", borderRadius:10, cursor:"pointer" }}>Share</button>  
         </div>
         
         <div style={{ marginBottom:20 }}>
