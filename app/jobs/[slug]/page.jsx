@@ -39,11 +39,13 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function JobPage({ params }) {
-  const { data: job } = await supabase
+  console.log('Looking for slug:', params.slug)
+  const { data: job, error } = await supabase
     .from('jobs')
     .select('*')
     .eq('slug', params.slug)
     .single()
+  console.log('Job found:', !!job, 'Error:', error?.message)
 
   if (!job) {
     return (
