@@ -258,7 +258,7 @@ export default function Detail({ job, saved, onSave, onClose, profile, onBuildPr
        <button onClick={() => {
   const url = job.slug ? `${window.location.origin}/jobs/${job.slug}` : window.location.href
   const deadline = job.deadline ? `Deadline: ${job.deadline}` : ''
- const text = `🎯 *${job.title}*\n🏛️ ${job.employer}\n⏰ ${deadline}\n\nCheck if you qualify 👇\n${url}\n\n_Find Kenya government jobs that match your qualifications 👉 gavajobs.co.ke_`
+ const text = `🎯 *${job.title}*\n🏛️ ${job.employer}\n⏰ ${deadline}\n\nCheck if you qualify on GavaJobs 👇`
   if (navigator.share) {
     navigator.share({ title: job.title, text, url })
   } else {
