@@ -18,7 +18,8 @@ function dl(deadline) {
 import { C } from '../../../constants/theme'
 import Link from 'next/link'
 
-export async function generateMetadata({ params }) {
+export async function generateMetadata({ params: paramsPromise }) {
+  const params = await paramsPromise
   const { data: job } = await supabase
     .from('jobs')
     .select('title, employer, county, deadline, about, ai_summary, edu_min')
@@ -38,7 +39,8 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function JobPage({ params }) {
+export default async function JobPage({ params: paramsPromise }) {
+  const params = await paramsPromise
   console.log('Looking for slug:', params.slug)
   const { data: job, error } = await supabase
     .from('jobs')
