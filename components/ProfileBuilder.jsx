@@ -352,7 +352,7 @@ export const JobCard = React.memo(function JobCard({ job, active, saved, onSave,
             {followed && !d.closed && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:4, background:"#FEF3C7", color:"#92400E" }}>⭐ Following</span>}
             {!d.closed && job.posts >= 20 && <span style={{ fontSize:10, fontWeight:700, padding:"2px 6px", borderRadius:4, background:"#DBEAFE", color:"#1D4ED8", textTransform:"uppercase" }}>Mass Recruitment</span>}
           </div>
-          <h3 style={{ fontSize:14, fontWeight:600, color:C.text, lineHeight:1.35, marginBottom:3, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{job.title}</h3>
+        <a href={job.slug ? `/jobs/${job.slug}` : '#'} onClick={e => e.stopPropagation()} target="_blank" rel="noreferrer" style={{ textDecoration:'none', color:'inherit', display:'block' }}><h3 style={{ fontSize:14, fontWeight:600, color:C.text, lineHeight:1.35, marginBottom:3, display:"-webkit-box", WebkitLineClamp:2, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{job.title}</h3></a>
           <p style={{ fontSize:12, color:C.text2, marginBottom:4, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{job.employer}</p>
           <div style={{ display:"flex", alignItems:"center", gap:5, fontSize:11, color:C.text3 }}>
             <span>{job.county}</span>

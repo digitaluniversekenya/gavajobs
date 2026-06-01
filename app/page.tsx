@@ -78,6 +78,7 @@ export default function Home() {
           chapterSix: j.chapter_six,
           ai_summary: j.ai_summary,
           ai_match_fields: j.ai_match_fields,
+          slug: j.slug,
         }))
         setJobs(mapped)
       } catch (err) {
