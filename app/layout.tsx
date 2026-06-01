@@ -19,6 +19,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={outfit.className} style={{ margin:0, padding:0, background:'#F4F4F2' }}>
+        <script dangerouslySetInnerHTML={{ __html: `
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js')
+    })
+  }
+`}} />
         {children}
       </body>
     </html>
