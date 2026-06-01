@@ -1,4 +1,9 @@
-import { supabase } from '../../../services/supabase'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
 import { dl, ini } from '../../../utils/helpers'
 import { C } from '../../../constants/theme'
 import Link from 'next/link'
