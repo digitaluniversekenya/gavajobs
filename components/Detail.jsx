@@ -255,14 +255,17 @@ export default function Detail({ job, saved, onSave, onClose, profile, onBuildPr
             )
           })()}
           <button onClick={() => onSave(job.id)} style={{ background:isSaved?C.redSoft:C.borderLight, color:isSaved?C.red:C.text2, border:`1.5px solid ${isSaved?C.red:C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 16px", borderRadius:10, cursor:"pointer" }}>{isSaved?"✓ Saved":"Save"}</button>
-        <button onClick={() => {
+       <button onClick={() => {
   const url = job.slug ? `${window.location.origin}/jobs/${job.slug}` : window.location.href
+  const deadline = job.deadline ? `Deadline: ${job.deadline}` : ''
+  const text = `🎯 *${job.title}*\n🏛️ ${job.employer}\n📍 ${job.county} · ${job.edu}\n⏰ ${deadline}\n\nCheck if you qualify 👇\n${url}\n\n_Find Kenya government jobs that match your qualifications on GavaJobs_`
   if (navigator.share) {
-    navigator.share({ title: job.title, text: `${job.title} at ${job.employer}`, url })
+    navigator.share({ title: job.title, text, url })
   } else {
-    navigator.clipboard.writeText(url).then(() => alert('Link copied!')).catch(() => {})
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`
+    window.open(waUrl, '_blank')
   }
-}} style={{ background:C.borderLight, color:C.text2, border:`1.5px solid ${C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 14px", borderRadius:10, cursor:"pointer" }}>Share</button>  
+}} style={{ background:C.borderLight, color:C.text2, border:`1.5px solid ${C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 14px", borderRadius:10, cursor:"pointer" }}>Share</button>
         </div>
         
         <div style={{ marginBottom:20 }}>
