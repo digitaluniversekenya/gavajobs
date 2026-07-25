@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import { supabase } from '../../services/supabase'
+import { slugify } from '../../utils/slugify'
 import { PROF_QUALS } from '../../constants/profQuals'
 import { PROF_BODIES } from '../../constants/profBodies'
 import { FIELD_PILLS } from '../../constants/fieldPills'
@@ -382,7 +383,7 @@ export default function AdminPage() {
         const { data, error } = await supabase.from('jobs').select('*').order('added_date', { ascending: false })
         if (error) throw error
         const mapped = (data || []).map(j => ({
-          id: j.display_id, _supabase_id: j.id, src: j.source, isNew: j.is_new,
+          id: j.display_id, _supabase_id: j.id, src: j.source, isNew: j.is_new,slug: j.slug,
           open: j.status === 'published', status: j.status, deadline: j.deadline,
           addedDate: j.added_date, title: j.title, employer: j.employer,
           sector: j.sector, county: j.county, edu: j.edu_min, posts: j.posts,
@@ -450,6 +451,7 @@ export default function AdminPage() {
 
   const toRow = (job) => ({
     display_id: job.id, source: job.src || 'MyGov', is_new: job.isNew !== false,
+   slug: job.slug || slugify(job.title, job.employer, job.id), 
     status: job.status || 'draft', deadline: job.deadline,
     added_date: job.addedDate || new Date().toISOString().split('T')[0],
     title: job.title, employer: job.employer, sector: job.sector || 'Other',

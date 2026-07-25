@@ -5,6 +5,7 @@ import ScoreRing from './ScoreRing'
 import { C } from '../constants/theme'
 import { isManagement } from '../services/matchingEngine'
 import { matchColor, matchLabel, dl, ini, waShare } from '../utils/helpers'
+import { slugify } from '../utils/slugify'
 import { PROF_QUALS } from '../constants/profQuals'
 import { PROF_BODIES } from '../constants/profBodies'
 
@@ -256,13 +257,13 @@ export default function Detail({ job, saved, onSave, onClose, profile, onBuildPr
           })()}
           <button onClick={() => onSave(job.id)} style={{ background:isSaved?C.redSoft:C.borderLight, color:isSaved?C.red:C.text2, border:`1.5px solid ${isSaved?C.red:C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 16px", borderRadius:10, cursor:"pointer" }}>{isSaved?"✓ Saved":"Save"}</button>
        <button onClick={() => {
-  const url = job.slug ? `${window.location.origin}/jobs/${job.slug}` : window.location.href
+  const url = `${window.location.origin}/jobs/${job.slug || slugify(job.title, job.employer, job.id)}`
   const deadline = job.deadline ? `Deadline: ${job.deadline}` : ''
  const text = `🎯 *${job.title}*\n🏛️ ${job.employer}\n⏰ ${deadline}\n\nCheck if you qualify on GavaJobs 👇`
   if (navigator.share) {
     navigator.share({ title: job.title, text, url })
   } else {
-    const waUrl = `https://wa.me/?text=${encodeURIComponent(text)}`
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(text + '\n' + url)}`
     window.open(waUrl, '_blank')
   }
 }} style={{ background:C.borderLight, color:C.text2, border:`1.5px solid ${C.border}`, fontFamily:"inherit", fontSize:13, fontWeight:500, padding:"12px 14px", borderRadius:10, cursor:"pointer" }}>Share</button>
