@@ -12,6 +12,7 @@ import ProfileBuilder from '../components/ProfileBuilder'
 import Detail from '../components/Detail'
 import AuthScreen from '../components/AuthScreen'
 import { supabase } from '../services/supabase'
+import { getProfile, saveProfile, getSavedJobs, saveJob, unsaveJob } from '../services/storage'
 
 export default function Home() {
   const [auth, setAuth] = useStore("gava_auth", null)
@@ -42,6 +43,11 @@ export default function Home() {
     })
     return () => subscription.unsubscribe()
   }, [])
+  useEffect(() => {
+    if (!auth?.id) return
+    getSavedJobs(auth.id).then(setSaved)
+    getProfile(auth.id).then(p => { if (p) setProfile(p) })
+  }, [auth?.id])
 
   const [jobs, setJobs] = useState<any[]>([])
   const [jobsLoading, setJobsLoading] = useState(true)
@@ -97,7 +103,11 @@ export default function Home() {
     fetchJobs()
   }, [])
 
-  const toggleSave = useCallback(id => setSaved(p => p.includes(id) ? p.filter(x=>x!==id) : [...p, id]), [])
+  const toggleSave = useCallback(id => setSaved(p => {
+    const has = p.includes(id)
+    if (auth?.id) { has ? unsaveJob(auth.id, id) : saveJob(auth.id, id) }
+    return has ? p.filter(x=>x!==id) : [...p, id]
+  }), [auth?.id])
   const toggleFollow = useCallback(emp => setFollowedEmps(p => p.includes(emp) ? p.filter(x=>x!==emp) : [...p, emp]), [])
   const select = useCallback(job => { setSelected(job); setMobOpen(true) }, [])
 
@@ -373,7 +383,7 @@ export default function Home() {
       )}
       
       {showProfileBuilder && (
-        <ProfileBuilder profile={profile} setProfile={setProfile} onClose={() => setShowProfileBuilder(false)}/>
+      <ProfileBuilder profile={profile} setProfile={(p) => { setProfile(p); if (auth?.id) saveProfile(auth.id, p) }} onClose={() => setShowProfileBuilder(false)}/>
       )}
 
       {showAuth && (
